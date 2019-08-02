@@ -1,53 +1,54 @@
 /******************************************
-Treehouse Techdegree:
-FSJS project 2 - List Filter and Pagination
-******************************************/
-   
+ Treehouse Techdegree:
+ FSJS project 2 - List Filter and Pagination
+ ******************************************/
+
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
-
-const studentList  = document.getElementsByClassName("student-item");
-const studentLimit  = 10;
+//Global variables for student array and size of page
 
 
+const studentList = document.getElementsByClassName("student-item");
+const studentLimit = 10;
 
+//function get set number of pages
+numberOfPages = (array, pageMax) => {
+    const totalPages = Math.ceil(array.length / studentLimit);
+};
 
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
+//Show Page function
+showPage = (array, pageNum) => {
+    //set index numbers to adjust for items in array with 0 based index
+    const startIndex = (pageNum * studentLimit) - studentLimit;
+    const endIndex = (pageNum * studentLimit) - 1;
 
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
+    const li = document.querySelector('li');
+    for (let i = 0; i < array.length; i++) {
+        array[i].style.display = 'none';
+    }
+    for (let i = 0; i < array.length; i++) {
+        if (i >= startIndex && i <= endIndex) {
+            array[i].style.display = 'block';
+        }
+    }
+};
 
 
 
+/***
+ Create the `appendPageLinks function` to generate, append, and add
+ functionality to the pagination buttons.
+ ***/
+appendPageLinks = () => {
+    //get page from HTML
+    let page = document.querySelector('.page');
+    d
 
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
+};
+showPage(studentList, 1);
+numberOfPages(studentList, studentLimit);
 
 
 
 
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
