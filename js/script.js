@@ -17,6 +17,9 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
+const studentList  = document.getElementsByClassName("student-item");
+const studentLimit  = 10;
+
 
 
 
