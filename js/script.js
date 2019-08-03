@@ -15,6 +15,7 @@ const studentLimit = 10;
 //function get set number of pages
 numberOfPages = (array, pageMax) => {
     const totalPages = Math.ceil(array.length / studentLimit);
+    return totalPages;
 };
 
 //Show Page function
@@ -42,12 +43,26 @@ showPage = (array, pageNum) => {
  ***/
 appendPageLinks = () => {
     //get page from HTML
-    let page = document.querySelector('.page');
-    d
+    const page = document.querySelector('.page');
+    const div = document.createElement("div");
+    const pageList = document.createElement("ul");
+    div.classList.add('pagination');
+    page.appendChild(div);
+    div.appendChild(pageList);
+    const pagesNeeded = numberOfPages(studentList, studentLimit);
+    for (let i = 0; i < pagesNeeded; i++){
+       const li  =  document.createElement("li");
+       const a = document.createElement("a");
+       a.textContent = i.toString();
+       a.setAttribute('href', '#');
+        pageList.appendChild(li);
+        li.appendChild(a);
+    }
 
 };
 showPage(studentList, 1);
 numberOfPages(studentList, studentLimit);
+appendPageLinks();
 
 
 
