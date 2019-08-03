@@ -35,13 +35,11 @@ showPage = (array, pageNum) => {
     }
 };
 
-
-
 /***
  Create the `appendPageLinks function` to generate, append, and add
  functionality to the pagination buttons.
  ***/
-appendPageLinks = () => {
+appendPageLinks = (list) => {
     //get page from HTML
     const page = document.querySelector('.page');
     const div = document.createElement("div");
@@ -50,19 +48,43 @@ appendPageLinks = () => {
     page.appendChild(div);
     div.appendChild(pageList);
     const pagesNeeded = numberOfPages(studentList, studentLimit);
-    for (let i = 0; i < pagesNeeded; i++){
+    for (let i = 1; i <= pagesNeeded; i++){
        const li  =  document.createElement("li");
        const a = document.createElement("a");
        a.textContent = i.toString();
+       //set page 1 to active
+       if (a.textContent === '1'){
+           a.classList.add('active');
+       }
        a.setAttribute('href', '#');
         pageList.appendChild(li);
         li.appendChild(a);
     }
-
+    setEventHandlers();
 };
+
+setEventHandlers = () => {
+    const anchorTags = document.querySelectorAll("a");
+    anchorTags.forEach(element => {
+        addEventListener("click", (e) =>{
+            console.log('clicked');
+            updateActiveLink(anchorTags);
+            e.target.classList.add('active');
+            showPage(studentList, e.target.textContent);
+            })
+        })
+    }
+
+updateActiveLink = (tagList) =>{
+    tagList.forEach(element =>{
+        if (element.classList.contains('active')){
+            element.classList.remove('active');
+        }
+    })
+}
+
 showPage(studentList, 1);
-numberOfPages(studentList, studentLimit);
-appendPageLinks();
+appendPageLinks(studentList);
 
 
 
