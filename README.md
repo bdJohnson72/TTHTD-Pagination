@@ -29,6 +29,7 @@ I decided to take a look ath Web Boss short writing [Markdown Course][2] and use
 
  
 ##Functions for exceeds expectations
+1. Added HTML 5 serch bar to both 44students.html and 64students.html
  
  [1]: https://teamtreehouse.com/home
  [2]: https://masteringmarkdown.com
