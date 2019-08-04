@@ -67,7 +67,6 @@ setEventHandlers = () => {
     const anchorTags = document.querySelectorAll("a");
     anchorTags.forEach(element => {
         addEventListener("click", (e) =>{
-            console.log('clicked');
             updateActiveLink(anchorTags);
             e.target.classList.add('active');
             showPage(studentList, e.target.textContent);
