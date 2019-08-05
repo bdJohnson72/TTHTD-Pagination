@@ -31,7 +31,9 @@ function createSearchBar(){
     div.appendChild(button);
     button.innerHTML = "Search";
     button.addEventListener('click', search);
+    input.addEventListener('onkeydown', search);
 }
+
 
 //function get set number of pages
  const numberOfPages = (array, pageMax) => {
@@ -83,6 +85,11 @@ const appendPageLinks = (list) => {
     }
     setEventHandlers();
 };
+const removePagination = () => {
+    const pagination = document.querySelector('.pagination');
+    console.log(pagination);
+    pagination.innerHTML = '';
+}
 
 const setEventHandlers = () => {
     const anchorTags = document.querySelectorAll("a");
@@ -112,26 +119,41 @@ const updateActiveLink = (tagList) => {
     search(searchTerm);
 
 });*/
-const search = () =>{
+const search = () => {
+    //removePagination();
+    //clear results on each key stroke
+    removePagination();
+    searchResults.splice(0, searchResults.length);
+    console.log('search results after cleared array ' + searchResults);
     const searchTerm = document.getElementById('search-field');
-    let value  = searchTerm.value.toLowerCase();
-    console.log('search term = ' + value);
-    for (let i = 0; i < studentNames.length; i++){
-        let nameToCheck = studentNames[i];
-        let nameValue = nameToCheck.innerText;
+    let searchValue = searchTerm.value.toLowerCase();
+    console.log('search term = ' + searchValue);
+    /* for(const studentNameElement of studentNames) {
+         const name = studentNameElement.textContent.toLowerCase();
+         if(name.includes(searchValue)){
+             console.log('value match');
+             studentNameElement.style.display = 'block';
+         }
+     }*/
+    for (let i = 0; i < studentNames.length; i++) {
+        let nameToCheck = studentNames[i].textContent;
+        let nameValue = nameToCheck.textContent;
         console.log('value of name to check = ' + nameToCheck);
-        if (nameValue.includes(value) && !searchResults.includes(studentNames[i])){
+        if (nameToCheck.toLowerCase().indexOf(searchValue) > -1) {
             console.log('value match');
-            searchResults.push(studentNames[i])
-        }
+            searchResults.push(studentNames[i]);
+            studentList[i].style.display = 'block';
+        } else {
 
+        }
     }
 }
+
+
 
 createSearchBar();
 showPage(studentList, 1);
 appendPageLinks(studentList);
-
 
 
 
