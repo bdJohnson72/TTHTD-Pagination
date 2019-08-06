@@ -11,8 +11,9 @@
 "use strict"
 const studentList = document.getElementsByClassName("student-item");
 const studentLimit = 10;
-const studentNames = document.getElementsByTagName("h3");
-let searchResults =[];
+let resultsFound = true;
+
+
 
 
 //add search bar to top of page
@@ -26,12 +27,15 @@ function createSearchBar(){
     div.setAttribute('class', 'student-search' );
     input.setAttribute('placeholder', 'Search by student name');
     input.setAttribute('type', 'text');
-    input.setAttribute('onkeyup', 'search()');
+    //input.setAttribute('onkeyup', 'search()');
     input.setAttribute('id', 'search-field');
     div.appendChild(button);
     button.innerHTML = "Search";
-    button.addEventListener('click', search);
-    input.addEventListener('onkeydown', search);
+    button.addEventListener('click', (e) =>{
+       search();
+        }
+    );
+
 }
 
 
@@ -112,44 +116,47 @@ const updateActiveLink = (tagList) => {
 /*****
  * Start of search functionality
  */
-/*searchBtn.addEventListener('click', (e) => {
-    console.log('clicked');
-    let searchTerm = document.getElementById('student-search').value.toLowerCase();
-    console.log('search button value = ' + searchTerm);
-    search(searchTerm);
 
-});*/
 const search = () => {
-    //removePagination();
-    //clear results on each key stroke
+    const studentNames = document.getElementsByTagName("h3");
+    let searchResults = [];
     removePagination();
-    searchResults.splice(0, searchResults.length);
-    console.log('search results after cleared array ' + searchResults);
     const searchTerm = document.getElementById('search-field');
     let searchValue = searchTerm.value.toLowerCase();
     console.log('search term = ' + searchValue);
-    /* for(const studentNameElement of studentNames) {
-         const name = studentNameElement.textContent.toLowerCase();
-         if(name.includes(searchValue)){
-             console.log('value match');
-             studentNameElement.style.display = 'block';
-         }
-     }*/
     for (let i = 0; i < studentNames.length; i++) {
         let nameToCheck = studentNames[i].textContent;
-        let nameValue = nameToCheck.textContent;
-        console.log('value of name to check = ' + nameToCheck);
-        if (nameToCheck.toLowerCase().indexOf(searchValue) > -1) {
-            console.log('value match');
-            searchResults.push(studentNames[i]);
+        let nameValue = nameToCheck;
+        if (nameValue.includes(searchValue) ) {
+            console.log('match found');
             studentList[i].style.display = 'block';
-        } else {
+            searchResults.push(nameValue);
+            console.log(nameValue);
+        }
+        if(searchResults.length > 0){
+            resultsFound = true;
+            setDisplay(searchResults);
+        }else {
+            console.log('in no results loop');
+            if(resultsFound = true){
+                let location = document.querySelector('.page');
+                let div = document.createElement('div');
+                div.textContent = 'No Results Found';
+                location.appendChild(div);
+                for(let i = 0; i < studentList; i++){
+                    studentList[i].style.display = 'none';
+                    resultsFound = false;
+                }
+
+            }else {return}
 
         }
     }
+};
+
+const setDisplay = (searchResults) => {
+    console.log('value in search array' + searchResults);
 }
-
-
 
 createSearchBar();
 showPage(studentList, 1);
